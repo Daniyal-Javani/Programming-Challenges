@@ -6,5 +6,4 @@ for ($index = 2; $index <= 100; $index++) {
     }
 }
 $array = array_unique($array);
-//print_r($array);
 echo count($array);
