@@ -1,8 +1,8 @@
 <?php
 $times = microtime(true);
 
-function pentagonal($num) {
-     return $num * (3 * $num - 1 ) / 2;
+for ($i = 1; $i < 2200; ++$i) {
+    $pentagonal[$i] = $i * (3 * $i - 1 ) / 2;
 }
 
 function is_pentagonal($c) {
@@ -16,11 +16,9 @@ function is_pentagonal($c) {
 
 for ($i = 2;  ; ++$i) {
     for ($j = 1; $j < $i ; ++$j) {
-        $pi = pentagonal($i);
-        $pj = pentagonal($j);
-        if (is_pentagonal($pi + $pj)) {
-            if (is_pentagonal(abs($pi - $pj))) {
-                $difference = $pi - $pj;
+        if (is_pentagonal($pentagonal[$i] + $pentagonal[$j])) {
+            if (is_pentagonal(abs($pentagonal[$i]- $pentagonal[$j]))) {
+                $difference = $pentagonal[$i] - $pentagonal[$j];
                 break 2;
             }
         }
