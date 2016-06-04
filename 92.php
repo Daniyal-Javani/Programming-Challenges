@@ -3,10 +3,11 @@ $times = microtime(true);
 $counter = 0;
 $nums = array();
 for ($i = 1; $i< 10000000;++$i) {
-    $array_num = array_map('intval', str_split($i));
+    $i_temp = $i;
     while (true) {
         $temp = 0;
-        foreach ($array_num as $digit) {
+        for (; $i_temp >= 1; $i_temp /= 10) {
+            $digit = $i_temp % 10;
             $temp += $digit * $digit;
         }
         $temp_array[] = $temp;
@@ -39,7 +40,7 @@ for ($i = 1; $i< 10000000;++$i) {
             ++$counter;
             break;
         }
-        $array_num  = array_map('intval', str_split($temp));
+        $i_temp = $temp;
     }
 }
 echo $counter;
