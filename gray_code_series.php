@@ -1,4 +1,5 @@
 <?php
+/* Enter your code here. Read input from STDIN. Print output to STDOUT */
 function bin2gray($value = '')
 {
     $result = $value[0];
@@ -7,15 +8,28 @@ function bin2gray($value = '')
     }
     return $result;
 }
+function mydecbin($strdec)
+{
+    bcscale(0);
 
-$n = 65;
+    $strbin = '';
+    do {
+        $strbin = bcmod($strdec, '2') . $strbin;
+        $strdec = bcdiv($strdec, '2');
+    } while (bccomp($strdec, '0'));
+
+    return ($strbin);
+}
+$handle = fopen("php://stdin", "r");
+$n = fgets($handle);
+$n = trim($n);
 $base = 0;
 for ($i = 0; $i < $n; $i++) {
-    $base += pow(2, $i);
+    $base = bcadd($base, bcpow(2, $i));
 }
 
-$base -= $n;
+$base = bcsub($base, $n);
 for ($i = 0; $i < $n; $i++) {
-    ++$base;
-    echo bin2gray(decbin($base)) . "\n";
+    $base = bcadd($base, 1);
+    echo bin2gray(mydecbin("$base")) . "\n";
 }
