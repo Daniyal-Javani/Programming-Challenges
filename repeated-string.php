@@ -3,20 +3,19 @@
 
 function repeatedString($s, $n) {
     $stringSize = strlen($s);
-    $arrayCount = [];
     $count = 0;
+    $remainder = $n % $stringSize;
     for ($i = 0; $i < $stringSize; $i++) {
+        if ($i == $remainder) {
+            $result = $count;
+        }
+
         if ($s[$i] == 'a') {
             $count++;
         }
-
-        $arrayCount[$i] = $count;
     }
 
-    $result = (int) ($n / $stringSize) * $count;
-    if ($n % $stringSize !== 0) {
-        $result += $arrayCount[($n % $stringSize) - 1];
-    }
+    $result += (int) ($n / $stringSize) * $count;
 
     return $result;
 }
