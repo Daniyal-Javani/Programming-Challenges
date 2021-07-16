@@ -1,0 +1,56 @@
+
+/*
+ * Complete the 'arrayManipulation' function below.
+ *
+ * The function is expected to return a LONG_INTEGER.
+ * The function accepts following parameters:
+ *  1. INTEGER n
+ *  2. 2D_INTEGER_ARRAY queries
+ */
+ // https://www.hackerrank.com/challenges/crush?h_l=interview&playlist_slugs%5B%5D=interview-preparation-kit&playlist_slugs%5B%5D=arrays
+
+function arrayManipulation($n, $queries) {
+    foreach ($queries as $query) {
+        if (!isset($map[$query[0]])) {
+            $map[$query[0]] = 0;
+        }
+        if (!isset($map[$query[1] + 1])) {
+            $map[$query[1] + 1] = 0;
+            var_dump($query[1] + 1);
+        }
+        $map[$query[0]] += $query[2];
+        $map[$query[1] + 1] += -$query[2];
+    }
+
+    $value = 0;
+    $max = 0;
+    ksort($map);
+    foreach ($map as $element) {
+        $value += $element;
+        $max = max($max, $value);
+    }
+
+    return $max;
+}
+
+$fptr = fopen(getenv("OUTPUT_PATH"), "w");
+
+$first_multiple_input = explode(' ', rtrim(fgets(STDIN)));
+
+$n = intval($first_multiple_input[0]);
+
+$m = intval($first_multiple_input[1]);
+
+$queries = array();
+
+for ($i = 0; $i < $m; $i++) {
+    $queries_temp = rtrim(fgets(STDIN));
+
+    $queries[] = array_map('intval', preg_split('/ /', $queries_temp, -1, PREG_SPLIT_NO_EMPTY));
+}
+
+$result = arrayManipulation($n, $queries);
+
+fwrite($fptr, $result . "\n");
+
+fclose($fptr);
